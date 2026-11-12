@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Copilot code review demo</title>
+  <link rel="icon" href="assets/cbs-logo.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <div class="wrap">
-      <a class="brand" href="index.html">Copilot code review demo</a>
+      <a class="brand" href="index.html"><img src="assets/cbs-logo.png" alt="cbs" width="75" height="28"><span>Copilot code review demo</span></a>
       <nav aria-label="Main">
         <ul>
           <li><a href="index.html" aria-current="page">Overview</a></li>
@@ -26,14 +27,14 @@
     <p><a class="button" href="try-it.html">Try the review flow →</a></p>
 
     <h2>How the flow works</h2>
-    <ol class="flow" aria-label="Demo flow overview">
-      <li><strong>Run workflow</strong><span>“Create demo branch”</span></li>
-      <li><strong>Branch pushed</strong><span><code>demo/&lt;scenario&gt;-N</code></span></li>
-      <li><strong>Open pull request</strong><span>from the job summary</span></li>
-      <li><strong>Copilot requested</strong><span>by the ruleset</span></li>
-      <li><strong>Review comments</strong><span>+ CI results</span></li>
-      <li><strong>Fix &amp; re-review</strong><span>then close the PR</span></li>
-    </ol>
+    <div class="flow" role="list" aria-label="Demo flow overview">
+      <span class="step" role="listitem"><b>1</b>Run workflow</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="step" role="listitem"><b>2</b>Branch pushed</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="step" role="listitem"><b>3</b>Open pull request</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="step" role="listitem"><b>4</b>Copilot requested</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="step" role="listitem"><b>5</b>Review comments</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="step" role="listitem"><b>6</b>Fix &amp; re-review</span>
+    </div>
     <ol class="steps">
       <li><strong>Run the workflow.</strong> In <em>Actions → Create demo branch</em> you pick a scenario, for example a logic bug or a security problem.</li>
       <li><strong>Branch pushed.</strong> The workflow copies the scenario files over <code>main</code> and pushes a branch called <code>demo/&lt;scenario&gt;-&lt;run number&gt;</code>.</li>
@@ -84,7 +85,7 @@
   </main>
   <footer>
     <div class="wrap">
-      Official documentation: <a href="https://docs.github.com/en/copilot/concepts/agent-capabilities/agent-powered-workflows-and-operations/code-review">About Copilot code review</a> ·
+      cbs · Copilot code review demo · Official documentation: <a href="https://docs.github.com/en/copilot/concepts/agent-capabilities/agent-powered-workflows-and-operations/code-review">About Copilot code review</a> ·
       <a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-code-review">Configure code review</a>
     </div>
   </footer>
