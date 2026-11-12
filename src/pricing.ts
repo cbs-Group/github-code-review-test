@@ -45,8 +45,7 @@ export function calculateTax(amountCents: number, rateBasisPoints: number): numb
   if (!Number.isSafeInteger(rateBasisPoints) || rateBasisPoints < 0) {
     throw new RangeError("rateBasisPoints must be a non-negative integer");
   }
-  const rate = rateBasisPoints / 10_000;
-  return amountCents * rate;
+  return Math.round((amountCents * rateBasisPoints) / 10_000);
 }
 
 export function calculateTotal(items: readonly LineItem[], options: TotalOptions): Totals {
