@@ -21,8 +21,6 @@
     --note-bg: #0c2d6b;
     --warn-bg: #3b2e00;
   }
-  /* The logo has black lettering; give it a light backing on dark backgrounds. */
-  .brand img { background: #fff; border-radius: 4px; padding: 2px 4px; box-sizing: content-box; }
 }
 
 * { box-sizing: border-box; }
@@ -45,8 +43,7 @@ header .wrap {
   gap: 0.5rem 1.5rem;
   padding-block: 0.75rem;
 }
-.brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 600; color: var(--fg); text-decoration: none; }
-.brand img { height: 24px; width: auto; }
+.brand { font-weight: 600; color: var(--fg); text-decoration: none; }
 nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0; padding: 0; }
 nav a { color: var(--muted); text-decoration: none; }
 nav a:hover, nav a[aria-current="page"] { color: var(--accent); }
