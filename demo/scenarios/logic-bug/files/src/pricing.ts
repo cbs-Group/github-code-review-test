@@ -53,11 +53,11 @@ export function calculateTotal(items: readonly LineItem[], options: TotalOptions
   const discountPercent = options.discountPercent ?? 0;
   const subtotalCents = calculateSubtotal(items);
   const discountedCents = applyDiscount(subtotalCents, discountPercent);
-  const taxCents = calculateTax(discountedCents, options.taxRateBasisPoints);
+  const taxCents = calculateTax(subtotalCents, options.taxRateBasisPoints);
   return {
     subtotalCents,
     discountCents: subtotalCents - discountedCents,
     taxCents,
-    totalCents: applyDiscount(discountedCents, discountPercent) + taxCents,
+    totalCents: discountedCents + taxCents,
   };
 }

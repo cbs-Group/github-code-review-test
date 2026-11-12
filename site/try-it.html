@@ -41,7 +41,7 @@
     <table>
       <thead><tr><th>Scenario</th><th>What the change does</th><th>What Copilot should flag</th></tr></thead>
       <tbody>
-        <tr><td><code>logic-bug</code></td><td>“Simplifies” tax math and applies a loyalty discount to the total</td><td>Discount applied twice; tax returns fractional cents</td></tr>
+        <tr><td><code>logic-bug</code></td><td>“Simplifies” tax math and calculates tax before discounts</td><td>Tax calculated on the undiscounted subtotal; tax returns fractional cents</td></tr>
         <tr><td><code>security</code></td><td>Makes local setup “easier” and adds lookup logging</td><td>Hardcoded fallback API key; missing email validation; password hash in logs</td></tr>
         <tr><td><code>conventions</code></td><td>Adds a price formatting helper</td><td><code>any</code>, <code>console.log</code> and no test – rules from <code>.github/copilot-instructions.md</code></td></tr>
         <tr><td><code>clean</code></td><td>Adds a tested, locale-aware currency formatter</td><td>Little or nothing – a control to show Copilot does not invent issues</td></tr>

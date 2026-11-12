@@ -49,8 +49,9 @@ export function calculateTax(amountCents: number, rateBasisPoints: number): numb
 }
 
 export function calculateTotal(items: readonly LineItem[], options: TotalOptions): Totals {
+  const discountPercent = options.discountPercent ?? 0;
   const subtotalCents = calculateSubtotal(items);
-  const discountedCents = applyDiscount(subtotalCents, options.discountPercent ?? 0);
+  const discountedCents = applyDiscount(subtotalCents, discountPercent);
   const taxCents = calculateTax(discountedCents, options.taxRateBasisPoints);
   return {
     subtotalCents,

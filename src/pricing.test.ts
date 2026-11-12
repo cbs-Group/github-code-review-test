@@ -62,4 +62,18 @@ describe("calculateTotal", () => {
       totalCents: 1_785,
     });
   });
+
+  it("applies the discount only once", () => {
+    expect(
+      calculateTotal([{ sku: "BOOK", unitPriceCents: 1_000, quantity: 1 }], {
+        discountPercent: 10,
+        taxRateBasisPoints: 0,
+      }),
+    ).toEqual({
+      subtotalCents: 1_000,
+      discountCents: 100,
+      taxCents: 0,
+      totalCents: 900,
+    });
+  });
 });
