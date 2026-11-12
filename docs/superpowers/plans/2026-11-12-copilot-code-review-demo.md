@@ -1830,7 +1830,7 @@ Expected: all green, actionlint silent.
 Run: `git push -u origin main`
 Expected: push succeeds; *CI* starts on GitHub.
 
-- [ ] **Step 3: Manual GitHub settings (repository admin)** – follow `site/setup.html`: ruleset, Pages source *GitHub Actions*, auto-delete head branches.
+- [ ] **Step 3: Manual GitHub settings (repository admin)** – follow `site/setup.html`: ruleset and Pages source *GitHub Actions*.
 
 - [ ] **Step 4: End-to-end**
 

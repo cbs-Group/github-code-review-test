@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Try it – Copilot code review demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">Copilot code review demo</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="setup.html">Setup</a></li>
+          <li><a href="try-it.html" aria-current="page">Try it</a></li>
+          <li><a href="customize.html">Customize</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <h1>Try the review flow</h1>
+    <p class="lead">About five minutes from start to the first Copilot comment.</p>
+    <p><a class="button" href="https://github.com/cbs-Group/github-code-review-test/actions/workflows/create-demo-branch.yml">Open “Create demo branch” →</a></p>
+
+    <h2>Step by step</h2>
+    <ol class="steps">
+      <li><strong>Start the workflow.</strong> On the workflow page click <strong>Run workflow</strong>, choose a scenario (see below), and click <strong>Run workflow</strong> again.</li>
+      <li><strong>Open the run.</strong> When it finishes, open it. The <em>Summary</em> shows the branch name, a link, and what Copilot should find.</li>
+      <li><strong>Create the pull request.</strong> Click <strong>Open the pull request</strong>. Title and description are prefilled; keep <code>main</code> as base and click <strong>Create pull request</strong>.</li>
+      <li><strong>Wait for Copilot.</strong> With the ruleset active, Copilot appears under <em>Reviewers</em> and starts on its own. Without it, click <em>Reviewers</em> and select <strong>Copilot</strong>. A review usually takes a few minutes.</li>
+      <li><strong>Read the review.</strong> Open <em>Files changed</em> or the <em>Conversation</em> tab. Compare the comments with the expected findings from the job summary.</li>
+      <li><strong>Act on a comment.</strong> Use <strong>Commit suggestion</strong> on a suggested change, or reply and resolve the conversation. Rate comments with 👍 / 👎 to give feedback.</li>
+      <li><strong>Re-review.</strong> If <em>Review new pushes</em> is on, Copilot reviews the new commit automatically. Otherwise click the re-request button next to Copilot under <em>Reviewers</em>.</li>
+      <li><strong>Clean up.</strong> Close the pull request without merging and click <strong>Delete branch</strong>.</li>
+    </ol>
+
+    <h2>Scenarios</h2>
+    <table>
+      <thead><tr><th>Scenario</th><th>What the change does</th><th>What Copilot should flag</th></tr></thead>
+      <tbody>
+        <tr><td><code>logic-bug</code></td><td>“Simplifies” tax math and applies a loyalty discount to the total</td><td>Discount applied twice; tax returns fractional cents</td></tr>
+        <tr><td><code>security</code></td><td>Makes local setup “easier” and adds lookup logging</td><td>Hardcoded fallback API key; missing email validation; password hash in logs</td></tr>
+        <tr><td><code>conventions</code></td><td>Adds a price formatting helper</td><td><code>any</code>, <code>console.log</code> and no test – rules from <code>.github/copilot-instructions.md</code></td></tr>
+        <tr><td><code>clean</code></td><td>Adds a tested, locale-aware currency formatter</td><td>Little or nothing – a control to show Copilot does not invent issues</td></tr>
+      </tbody>
+    </table>
+    <p>All scenarios compile and keep the existing tests green, so CI passes and only the review catches the problems. Copilot is non-deterministic: wording, number and order of comments vary between runs.</p>
+
+    <h2>Experiment with instructions</h2>
+    <p>Copilot reads custom instructions from the pull request's head branch. In a demo pull request, edit <code>.github/copilot-instructions.md</code> – for example, remove the severity tag rule or add “Flag every function longer than 10 lines” – push, and request a new review. Compare the comments.</p>
+
+    <h2>Create a demo branch locally</h2>
+    <pre><code>npm ci
+node scripts/create-demo-branch.mjs list
+node scripts/create-demo-branch.mjs apply security
+git switch -c demo/security-local
+git add -A
+git commit -m "demo: apply security scenario"
+git push -u origin HEAD</code></pre>
+    <p>Then open a pull request from that branch as usual.</p>
+
+    <h2>Troubleshooting</h2>
+    <table>
+      <thead><tr><th>Symptom</th><th>Check</th></tr></thead>
+      <tbody>
+        <tr><td>Copilot is not offered under <em>Reviewers</em></td><td>You have no access to Copilot code review: missing license, or the organization policy is off.</td></tr>
+        <tr><td>No automatic review started</td><td>Ruleset is not <em>Active</em> or does not target <code>main</code>; the pull request is a draft and draft reviews are off. Request Copilot manually.</td></tr>
+        <tr><td>Review fails or never finishes</td><td>AI credit budget or quota is exhausted, or GitHub-hosted runners are disabled for the organization. Re-request after fixing.</td></tr>
+        <tr><td>Workflow fails at <code>git push</code></td><td>An organization policy restricts <code>GITHUB_TOKEN</code> write access, or a ruleset blocks creating <code>demo/*</code> branches.</td></tr>
+      </tbody>
+    </table>
+  </main>
+  <footer>
+    <div class="wrap">
+      Official documentation: <a href="https://docs.github.com/en/copilot/how-tos/use-copilot-agents/use-code-review">Using Copilot code review</a> ·
+      <a href="https://docs.github.com/en/copilot/tutorials/use-copilot-code-review-across-the-pull-request-lifecycle">Pull request lifecycle tutorial</a>
+    </div>
+  </footer>
+</body>
+</html>

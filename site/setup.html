@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Setup – Copilot code review demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">Copilot code review demo</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="setup.html" aria-current="page">Setup</a></li>
+          <li><a href="try-it.html">Try it</a></li>
+          <li><a href="customize.html">Customize</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <h1>One-time setup</h1>
+    <p class="lead">A repository admin does these steps once. Afterwards anyone with write access can run the demo.</p>
+
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>Copilot code review is enabled for the organization (organization settings → Copilot → Policies).</li>
+      <li>Demo users have a Copilot license, or the organization allows members without a license to use Copilot code review.</li>
+      <li>You are an admin of this repository.</li>
+    </ul>
+
+    <h2>1. Request Copilot automatically with a ruleset</h2>
+    <ol class="steps">
+      <li>Open <em>Settings → Rules → Rulesets</em> and click <strong>New ruleset → New branch ruleset</strong>.</li>
+      <li>Name it, for example <code>copilot-review</code>, and set <em>Enforcement status</em> to <strong>Active</strong>.</li>
+      <li>Under <em>Target branches</em>, click <strong>Add target → Include default branch</strong>.</li>
+      <li>Under <em>Branch rules</em>, select <strong>Automatically request Copilot code review</strong>.</li>
+      <li>Optionally enable <strong>Review new pushes</strong> (Copilot reviews each push again) and <strong>Review draft pull requests</strong>.</li>
+      <li>Click <strong>Create</strong>.</li>
+    </ol>
+    <div class="callout">
+      <p>Without the ruleset the demo still works: open the pull request, then choose <strong>Copilot</strong> under <em>Reviewers</em>. Each user can also turn on automatic review for their own pull requests in their personal Copilot settings → <em>Code review</em>.</p>
+    </div>
+
+    <h2>2. Review settings (optional)</h2>
+    <p>Open <em>Settings → Copilot → Code review</em> in the repository:</p>
+    <ul>
+      <li><strong>Review effort level</strong> for automatic reviews: Lite, Balanced or Max.</li>
+      <li><strong>Use custom instructions</strong> is on by default; keep it on so the files in <code>.github/</code> take effect.</li>
+      <li><strong>Auto-approval</strong>: leave off for this demo.</li>
+    </ul>
+
+    <h2>3. GitHub Pages</h2>
+    <ol class="steps">
+      <li>Open <em>Settings → Pages</em> and set <em>Source</em> to <strong>GitHub Actions</strong>.</li>
+      <li>Run <em>Actions → Deploy site → Run workflow</em> once. Later pushes to <code>site/</code> on <code>main</code> deploy automatically.</li>
+      <li>The site URL is shown in <em>Settings → Pages</em> and in the workflow run.</li>
+    </ol>
+    <div class="callout warn">
+      <p>This repository is private. GitHub Pages for private repositories needs a paid plan, and the site is <strong>public</strong> unless your organization uses GitHub Enterprise Cloud and you set the Pages visibility to <strong>Private</strong>. Check what your organization allows before publishing internal content.</p>
+    </div>
+
+    <h2>4. Branch housekeeping</h2>
+    <ul>
+      <li>Demo pull requests are closed without merging, so their branches stay until someone clicks <em>Delete branch</em> on the pull request. (<em>Automatically delete head branches</em> only applies to merged pull requests.)</li>
+      <li>The <em>Create demo branch</em> workflow declares <code>permissions: contents: write</code> itself. No change to the default workflow permissions is needed unless an organization policy blocks it.</li>
+      <li>Optionally require the <em>CI</em> check on <code>main</code> in the same ruleset.</li>
+    </ul>
+
+    <p><a class="button" href="try-it.html">Continue: try the flow →</a></p>
+  </main>
+  <footer>
+    <div class="wrap">
+      Official documentation: <a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-code-review">Configure code review</a> ·
+      <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">Pages publishing source</a>
+    </div>
+  </footer>
+</body>
+</html>

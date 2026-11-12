@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Copilot code review demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">Copilot code review demo</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html" aria-current="page">Overview</a></li>
+          <li><a href="setup.html">Setup</a></li>
+          <li><a href="try-it.html">Try it</a></li>
+          <li><a href="customize.html">Customize</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <h1>GitHub Copilot code review</h1>
+    <p class="lead">Copilot reviews a pull request like an extra teammate: it reads the change, leaves inline comments, and proposes fixes you can commit with one click. This repository lets you watch that happen on a small TypeScript project.</p>
+    <p><a class="button" href="try-it.html">Try the review flow →</a></p>
+
+    <h2>How the flow works</h2>
+    <ol class="flow" aria-label="Demo flow overview">
+      <li><strong>Run workflow</strong><span>“Create demo branch”</span></li>
+      <li><strong>Branch pushed</strong><span><code>demo/&lt;scenario&gt;-N</code></span></li>
+      <li><strong>Open pull request</strong><span>from the job summary</span></li>
+      <li><strong>Copilot requested</strong><span>by the ruleset</span></li>
+      <li><strong>Review comments</strong><span>+ CI results</span></li>
+      <li><strong>Fix &amp; re-review</strong><span>then close the PR</span></li>
+    </ol>
+    <ol class="steps">
+      <li><strong>Run the workflow.</strong> In <em>Actions → Create demo branch</em> you pick a scenario, for example a logic bug or a security problem.</li>
+      <li><strong>Branch pushed.</strong> The workflow copies the scenario files over <code>main</code> and pushes a branch called <code>demo/&lt;scenario&gt;-&lt;run number&gt;</code>.</li>
+      <li><strong>Open the pull request.</strong> The job summary has a link that opens a prefilled pull request. You are the author, just as in real work.</li>
+      <li><strong>Copilot is requested.</strong> A repository ruleset adds Copilot as a reviewer automatically. You can also add it by hand under <em>Reviewers</em>.</li>
+      <li><strong>Review comments arrive.</strong> Copilot leaves inline comments, often with suggested changes. CI runs in parallel.</li>
+      <li><strong>Fix and re-review.</strong> Commit a suggestion or push a fix, ask Copilot to review again, then close the pull request.</li>
+    </ol>
+
+    <h2>What Copilot does in a review</h2>
+    <ul>
+      <li>Reads the diff plus surrounding project context. The agentic part runs on GitHub Actions runners.</li>
+      <li>Leaves a review with inline comments. Many comments include a <em>suggested change</em> you can commit directly.</li>
+      <li>By default it submits a <em>Comment</em> review, so it does not block merging and does not count as a required approval. Admins can opt in to Copilot approvals.</li>
+      <li>Follows custom instructions from the pull request's <strong>head branch</strong>, so you can test instruction changes inside the same pull request.</li>
+      <li>Supports review effort levels <em>Lite</em>, <em>Balanced</em> (default) and <em>Max</em>.</li>
+    </ul>
+    <div class="callout">
+      <p>Copilot is a reviewer, not the reviewer. It can miss problems and can be wrong. Keep human review for anything that matters.</p>
+    </div>
+
+    <h2>Who can use it, and who pays</h2>
+    <p>Copilot code review is part of Copilot Pro, Pro+, Max, Business and Enterprise. On Business and Enterprise, organization owners can also let members <em>without</em> a Copilot license use it; that usage is billed to the organization.</p>
+    <p>A review consumes AI credits for the model and GitHub Actions minutes for the agentic context gathering.</p>
+    <table>
+      <thead><tr><th>How the review starts</th><th>AI credits are attributed to</th></tr></thead>
+      <tbody>
+        <tr><td>Someone requests Copilot under <em>Reviewers</em></td><td>The person who requested it</td></tr>
+        <tr><td>Automatic review (ruleset or personal setting)</td><td>The pull request author</td></tr>
+        <tr><td>Pull request authored by Copilot cloud agent</td><td>The human co-author, otherwise the organization</td></tr>
+        <tr><td>Pull request authored by another bot (for example <code>github-actions[bot]</code>)</td><td>The organization</td></tr>
+      </tbody>
+    </table>
+    <p>That last row is why this demo pushes only a branch and lets <em>you</em> open the pull request: billing follows your license, and CI runs normally. Pull requests created with <code>GITHUB_TOKEN</code> would not trigger other workflows.</p>
+
+    <h2>What is in this repository</h2>
+    <table>
+      <thead><tr><th>Path</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>src/</code></td><td>Small TypeScript library (pricing, users, config) with Vitest tests – the code under review</td></tr>
+        <tr><td><code>demo/scenarios/</code></td><td>Scenario overlays with planted issues, plus a clean control scenario</td></tr>
+        <tr><td><code>scripts/</code></td><td>Applies scenarios, renders the job summary, and checks that scenarios still compile</td></tr>
+        <tr><td><code>.github/copilot-instructions.md</code><br><code>.github/instructions/</code></td><td>Custom review instructions (repository-wide and path-specific)</td></tr>
+        <tr><td><code>.github/workflows/</code></td><td>CI, <em>Create demo branch</em>, and the Pages deployment</td></tr>
+        <tr><td><code>site/</code></td><td>This documentation site</td></tr>
+      </tbody>
+    </table>
+  </main>
+  <footer>
+    <div class="wrap">
+      Official documentation: <a href="https://docs.github.com/en/copilot/concepts/agent-capabilities/agent-powered-workflows-and-operations/code-review">About Copilot code review</a> ·
+      <a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-code-review">Configure code review</a>
+    </div>
+  </footer>
+</body>
+</html>

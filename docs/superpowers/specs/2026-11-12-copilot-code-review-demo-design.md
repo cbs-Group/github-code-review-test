@@ -71,7 +71,7 @@ Overlays replace whole files rather than applying patches, so they never fail on
 3. Job summary renders a prefilled compare link: `https://github.com/<repo>/compare/main...<branch>?quick_pull=1&title=…&body=…`.
 4. The tester opens the pull request (human author).
 5. The repository ruleset **Automatically request Copilot code review** requests Copilot; CI runs on the `pull_request` event.
-6. Tester reads comments, applies a suggestion, re-requests review or pushes (with *Review new pushes*), then closes the PR; head branch auto-deletes.
+6. Tester reads comments, applies a suggestion, re-requests review or pushes (with *Review new pushes*), then closes the PR and deletes the branch.
 
 Why a human opens the PR: automatic review usage is attributed to the PR author. Bot-authored PRs are billed directly to the organization (requires AI credits paid usage) and PRs created with `GITHUB_TOKEN` do not trigger other workflows, so CI would not run.
 
@@ -91,10 +91,10 @@ Copilot reads instructions from the PR head branch, so changes to instructions c
 
 ## GitHub Pages site
 
-Static HTML, one stylesheet, inline SVG flow diagram, relative links only (works under `/<repo>/` path).
+Static HTML, one stylesheet, CSS numbered-card flow diagram, relative links only (works under `/<repo>/` path).
 
 - `index.html` – what Copilot code review is, flow diagram, licensing/billing basics (manual vs. automatic vs. bot-authored).
-- `setup.html` – one-time setup: ruleset with *Automatically request Copilot code review* (+ *Review new pushes*, *Review draft pull requests*), review effort level, Pages source = *GitHub Actions*, *Automatically delete head branches*, private-repo Pages note (private visibility requires GitHub Enterprise Cloud).
+- `setup.html` – one-time setup: ruleset with *Automatically request Copilot code review* (+ *Review new pushes*, *Review draft pull requests*), review effort level, Pages source = *GitHub Actions*, deleting demo branches after closing, private-repo Pages note (private visibility requires GitHub Enterprise Cloud).
 - `try-it.html` – step-by-step per scenario, what to expect, applying suggestions, re-requesting review, cleanup.
 - `customize.html` – custom instructions, `applyTo` / `excludeAgent`, effort levels (Lite / Balanced / Max), tips and limits (Copilot leaves a *Comment* review, not an approval, unless auto-approval is enabled).
 

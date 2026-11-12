@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customize – Copilot code review demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">Copilot code review demo</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="setup.html">Setup</a></li>
+          <li><a href="try-it.html">Try it</a></li>
+          <li><a href="customize.html" aria-current="page">Customize</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <h1>Customize Copilot reviews</h1>
+    <p class="lead">Tell Copilot what matters in your codebase, choose how deep it looks, and decide when it runs.</p>
+
+    <h2>Custom instructions</h2>
+    <table>
+      <thead><tr><th>File</th><th>Scope</th><th>In this repository</th></tr></thead>
+      <tbody>
+        <tr><td><code>.github/copilot-instructions.md</code></td><td>Whole repository</td><td>Review priorities, money-in-cents rule, no <code>any</code>, no <code>console</code>, severity tags</td></tr>
+        <tr><td><code>.github/instructions/*.instructions.md</code></td><td>Files matching <code>applyTo</code></td><td><code>tests.instructions.md</code> for <code>**/*.test.ts</code>, <code>workflows.instructions.md</code> for <code>.github/workflows/**</code></td></tr>
+        <tr><td><code>AGENTS.md</code></td><td>Whole repository, shared with other AI agents</td><td>Not used</td></tr>
+      </tbody>
+    </table>
+    <p>A path-specific file starts with front matter:</p>
+    <pre><code>---
+applyTo: "**/*.test.ts"
+# optional: hide this file from code review or from the cloud agent
+# excludeAgent: "code-review"
+---
+
+- Tests must be deterministic: no real network, no real clock.</code></pre>
+    <h3>Writing good review instructions</h3>
+    <ul>
+      <li>Write short, concrete, checkable rules (“Money is an integer number of cents”) instead of general wishes (“write good code”).</li>
+      <li>Say what to prioritize and what to skip, for example formatter-level style.</li>
+      <li>Specify the comment format you want, such as severity tags.</li>
+      <li>Instructions are read from the pull request's head branch, so you can try changes in a pull request before merging them.</li>
+      <li>Repository admins can turn off custom instructions for code review in <em>Settings → Copilot → Code review</em>.</li>
+    </ul>
+
+    <h2>Review effort</h2>
+    <table>
+      <thead><tr><th>Level</th><th>Use for</th></tr></thead>
+      <tbody>
+        <tr><td>Lite</td><td>Standard review, lowest cost</td></tr>
+        <tr><td>Balanced (default)</td><td>Deeper analysis of complex logic, security-sensitive code, and cross-service changes</td></tr>
+        <tr><td>Max</td><td>Most intensive review with multiple high-reasoning models, for changes that need the most scrutiny</td></tr>
+      </tbody>
+    </table>
+    <p>Set it per request under <em>Reviewers</em>, as a personal default in your Copilot settings, or as the repository default for automatic reviews. Organizations and enterprises can cap the maximum level. Higher levels use more AI credits.</p>
+
+    <h2>When Copilot runs</h2>
+    <ul>
+      <li><strong>Manual:</strong> choose Copilot under <em>Reviewers</em>. Good for selective use.</li>
+      <li><strong>Automatic for your own pull requests:</strong> personal Copilot settings → <em>Code review</em>.</li>
+      <li><strong>Automatic for a repository or organization:</strong> a ruleset with <em>Automatically request Copilot code review</em>, optionally with <em>Review new pushes</em> and <em>Review draft pull requests</em>.</li>
+    </ul>
+    <p>Without <em>Review new pushes</em>, Copilot reviews a pull request once; request a re-review manually after larger changes.</p>
+
+    <h2>Limits and good practice</h2>
+    <ul>
+      <li>Copilot can miss issues and can produce false positives. Treat comments as suggestions and keep human review.</li>
+      <li>By default Copilot does not approve or block a pull request; approvals must be enabled explicitly by an admin.</li>
+      <li>Small, focused pull requests get better reviews and cost less.</li>
+      <li>Rate comments with 👍 / 👎 to send feedback to GitHub.</li>
+      <li>Pull requests opened by bots are billed to the organization; plan budgets accordingly.</li>
+    </ul>
+  </main>
+  <footer>
+    <div class="wrap">
+      Official documentation: <a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions">Repository custom instructions</a> ·
+      <a href="https://docs.github.com/en/copilot/tutorials/customize-code-review">Customize code review</a>
+    </div>
+  </footer>
+</body>
+</html>
