@@ -1,0 +1,45 @@
+name: Create demo branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Demo scenario with planted issues for Copilot code review
+        type: choice
+        required: true
+        default: logic-bug
+        options:
+          - logic-bug
+          - security
+          - conventions
+          - clean
+
+permissions:
+  contents: write
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    env:
+      SCENARIO: ${{ inputs.scenario }}
+      BASE_BRANCH: ${{ github.event.repository.default_branch }}
+      BRANCH: demo/${{ inputs.scenario }}-${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Apply scenario
+        run: node scripts/create-demo-branch.mjs apply "$SCENARIO"
+      - name: Commit and push demo branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add -A
+          git commit -m "demo: apply $SCENARIO scenario"
+          git push origin "$BRANCH"
+      - name: Write job summary
+        run: node scripts/create-demo-branch.mjs summary "$SCENARIO" "$BRANCH" >> "$GITHUB_STEP_SUMMARY"
