@@ -93,7 +93,7 @@ Copilot reads instructions from the PR head branch, so changes to instructions c
 
 Static HTML, one stylesheet, CSS numbered-card flow diagram, relative links only (works under `/<repo>/` path).
 
-Styling follows the cbs corporate look of `slide-dev-template/styles.css`: cbs color tokens (orange, black, silver), Space Grotesk headings, IBM Plex Sans body, panels/callouts with orange accents, `.flow .step .arrow` chips, cbs logo in the header. Fonts are self-hosted from `@fontsource` (SIL OFL, licenses in `site/fonts/`) instead of the Google Fonts CDN, so the site makes no third-party requests. Light theme only.
+GitHub-like light/dark styling with system fonts; the cbs logo is shown in the header.
 
 - `index.html` – what Copilot code review is, flow diagram, licensing/billing basics (manual vs. automatic vs. bot-authored).
 - `setup.html` – one-time setup: ruleset with *Automatically request Copilot code review* (+ *Review new pushes*, *Review draft pull requests*), review effort level, Pages source = *GitHub Actions*, deleting demo branches after closing, private-repo Pages note (private visibility requires GitHub Enterprise Cloud).
