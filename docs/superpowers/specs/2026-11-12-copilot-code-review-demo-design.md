@@ -60,7 +60,7 @@ Each scenario overlay compiles and keeps the existing tests green, so only the r
 | `logic-bug`   | discount applied twice in `calculateTotal`; tax computed with floats and rounding drift | double discount, float money math                 |
 | `security`    | hardcoded API key fallback in config; email lookup without validation; logging full user incl. password hash | secret in code, missing validation, sensitive data in logs |
 | `conventions` | new export using `any`, `console.log` in `src/`, no test for the new export   | violations of `.github/copilot-instructions.md`          |
-| `clean`       | small, correct refactor with a test                                            | little or nothing – shows Copilot does not invent issues |
+| `clean`       | small, correct addition (currency formatter) with a table-driven test          | little or nothing – shows Copilot does not invent issues |
 
 Overlays replace whole files rather than applying patches, so they never fail on patch conflicts. `check-scenarios` in CI detects when an overlay drifts from `main` and no longer compiles.
 
