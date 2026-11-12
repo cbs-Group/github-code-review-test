@@ -57,6 +57,6 @@ export function calculateTotal(items: readonly LineItem[], options: TotalOptions
     subtotalCents,
     discountCents: subtotalCents - discountedCents,
     taxCents,
-    totalCents: applyDiscount(discountedCents, discountPercent) + taxCents,
+    totalCents: discountedCents + taxCents,
   };
 }
