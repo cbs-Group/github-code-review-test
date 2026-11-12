@@ -45,17 +45,19 @@ export function calculateTax(amountCents: number, rateBasisPoints: number): numb
   if (!Number.isSafeInteger(rateBasisPoints) || rateBasisPoints < 0) {
     throw new RangeError("rateBasisPoints must be a non-negative integer");
   }
-  return Math.round((amountCents * rateBasisPoints) / 10_000);
+  const rate = rateBasisPoints / 10_000;
+  return amountCents * rate;
 }
 
 export function calculateTotal(items: readonly LineItem[], options: TotalOptions): Totals {
+  const discountPercent = options.discountPercent ?? 0;
   const subtotalCents = calculateSubtotal(items);
-  const discountedCents = applyDiscount(subtotalCents, options.discountPercent ?? 0);
+  const discountedCents = applyDiscount(subtotalCents, discountPercent);
   const taxCents = calculateTax(discountedCents, options.taxRateBasisPoints);
   return {
     subtotalCents,
     discountCents: subtotalCents - discountedCents,
     taxCents,
-    totalCents: discountedCents + taxCents,
+    totalCents: applyDiscount(discountedCents, discountPercent) + taxCents,
   };
 }
