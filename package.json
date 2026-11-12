@@ -1,0 +1,21 @@
+{
+  "name": "copilot-code-review-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo project for GitHub Copilot code review",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check:scenarios": "node scripts/check-scenarios.mjs",
+    "demo": "node scripts/create-demo-branch.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "7.0.2",
+    "vitest": "5.1.0"
+  }
+}
