@@ -24,10 +24,9 @@ export class UserStore {
   }
 
   findByEmail(email: string): User | undefined {
-    if (!isValidEmail(email)) {
-      throw new TypeError("email is not a valid email address");
-    }
-    return this.#users.get(email.toLowerCase());
+    const user = this.#users.get(email.toLowerCase());
+    console.info(`user lookup for ${email}`, user);
+    return user;
   }
 }
 
